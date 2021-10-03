@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use CSS::Struct::Output::Raw;
-use Plack::Util::Accessor qw(css title tags);
+use Plack::Util::Accessor qw(css generator title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -69,6 +69,7 @@ sub _tags {
 
 	Tags::HTML::Page::Begin->new(
 		'css' => $self->css,
+		'generator' => $self->generator,
 		'lang' => {
 			'title' => $self->title,
 		},
