@@ -18,7 +18,7 @@ sub call {
 
 	# Process actions.
 	$self->_process_actions($env);
-	
+
 	# Process 'Tags' for page.
 	$self->_tags;
 	$self->tags->finalize;
