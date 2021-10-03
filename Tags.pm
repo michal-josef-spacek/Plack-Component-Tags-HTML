@@ -20,6 +20,7 @@ sub call {
 	$self->_process_actions($env);
 
 	# Process 'Tags' for page.
+	$self->_css;
 	$self->_tags;
 	$self->tags->finalize;
 	return [
@@ -48,6 +49,12 @@ sub prepare_app {
 	if (! $self->title) {
 		$self->title(__PACKAGE__);
 	}
+
+	return;
+}
+
+sub _css {
+	my $self = shift;
 
 	return;
 }
