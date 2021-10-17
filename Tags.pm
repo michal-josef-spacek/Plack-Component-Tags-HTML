@@ -5,11 +5,11 @@ use strict;
 use warnings;
 
 use CSS::Struct::Output::Raw;
-use Plack::Util::Accessor qw(author css generator title tags);
+use Encode qw(encode);
+use Plack::Util::Accessor qw(author css encoding generator title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
-use Unicode::UTF8 qw(encode_utf8);
 
 our $VERSION = 0.01;
 
@@ -26,9 +26,9 @@ sub call {
 	return [
 		200,
 		[
-			'content-type' => 'text/html; charset=utf-8',
+			'content-type' => 'text/html; charset='.$self->encoding,
 		],
-		[encode_utf8($self->tags->flush(1))],
+		[$self->_encode($self->tags->flush(1))],
 	];
 }
 
@@ -46,6 +46,10 @@ sub prepare_app {
 		$self->css(CSS::Struct::Output::Raw->new);
 	}
 
+	if (! $self->encoding) {
+		$self->encoding('utf-8');
+	}
+
 	if (! $self->title) {
 		$self->title(__PACKAGE__);
 	}
@@ -57,6 +61,12 @@ sub _css {
 	my $self = shift;
 
 	return;
+}
+
+sub _encode {
+	my ($self, $string) = @_;
+
+	return encode($self->encode, $string);
 }
 
 sub _process_actions {

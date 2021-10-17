@@ -23,11 +23,11 @@ no_index:
     - xt
 requires:
   CSS::Struct::Output::Raw: 0
+  Encode: 0
   Plack::Component: 0
   Plack::Util::Accessor: 0
   Readonly: 0
   Tags::Output::Raw: 0
-  Unicode::UTF8: 0
   perl: 5.8.0
 resources:
   bugtracker: https://github.com/michal-josef-spacek/Plack-Component-Tags/issues
