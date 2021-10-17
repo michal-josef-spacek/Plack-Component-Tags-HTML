@@ -95,6 +95,7 @@ sub _tags {
 	Tags::HTML::Page::Begin->new(
 		'author' => $self->author,
 		'css' => $self->css,
+		'charset' => $self->encoding,
 		'generator' => $self->generator,
 		'lang' => {
 			'title' => $self->title,
