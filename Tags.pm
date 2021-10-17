@@ -6,7 +6,7 @@ use warnings;
 
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
-use Plack::Util::Accessor qw(author css encoding generator title tags);
+use Plack::Util::Accessor qw(author css encoding favicon generator title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -96,6 +96,7 @@ sub _tags {
 		'author' => $self->author,
 		'css' => $self->css,
 		'charset' => $self->encoding,
+		'favicon' => $self->favicon,
 		'generator' => $self->generator,
 		'lang' => {
 			'title' => $self->title,
