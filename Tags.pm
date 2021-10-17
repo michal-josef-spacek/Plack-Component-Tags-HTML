@@ -54,6 +54,8 @@ sub prepare_app {
 		$self->title(__PACKAGE__);
 	}
 
+	$self->_prepare_app;
+
 	return;
 }
 
@@ -67,6 +69,12 @@ sub _encode {
 	my ($self, $string) = @_;
 
 	return encode($self->encode, $string);
+}
+
+sub _prepare_app {
+	my $self = shift;
+
+	return;
 }
 
 sub _process_actions {
