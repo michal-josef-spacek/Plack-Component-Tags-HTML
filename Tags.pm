@@ -68,7 +68,7 @@ sub _css {
 sub _encode {
 	my ($self, $string) = @_;
 
-	return encode($self->encode, $string);
+	return encode($self->encoding, $string);
 }
 
 sub _prepare_app {
