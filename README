@@ -1,0 +1,143 @@
+NAME
+    Plack::Component::Tags - Plack component for Tags.
+
+SYNOPSIS
+     package App;
+
+     use base qw(Plack::Component::Tags);
+
+     sub _css {
+            my $self = shift;
+            $self->{'css'}->put(
+                    # Structure defined by CSS::Struct
+            );
+            return;
+     }
+
+     sub _prepare_app {
+            my $self = shift;
+            # Preparation of app, before Plack::Component::call().
+            return;
+     }
+
+     sub _process_action {
+            my ($self, $env) = @_;
+            # Process actions in Plack::Component::call() before output.
+            return;
+     }
+
+     sub _tags_middle {
+            my $self = shift;
+            $self->{'tags'}->put(
+                    # Structure defined by Tags
+            );
+            return;
+     }
+
+DESCRIPTION
+    This component is helper for creating Plack application with Tags. It is
+    based on Plack::Component.
+
+METHODS
+  "author"
+    Author string to HTML head. Default value is undef.
+
+  "css"
+    CSS::Struct::Output object. Default value is
+    CSS::Struct::Output::Raw->new.
+
+  "encoding"
+    Set encoding for output. Default value is 'utf-8'.
+
+  "favicon"
+    Link to favicon. Default value is undef.
+
+  "generator"
+    Generator string to HTML head. Default value is undef.
+
+  "title"
+    Title of page. Default value is __PACKAGE__ name. TODO: Only
+    Plack::Component::Tags?
+
+  "tags"
+    Tags::Output object. Default value is
+
+     Tags::Output::Raw->new(
+             'xml' => 1,
+             'no_simple' => ['textarea'],
+     ));
+
+METHODS TO OVERWRITE
+  "_css"
+    Method to set css via "$self-"{'css'}> object. Argument is $self only.
+
+  "_prepare_app"
+    Method to set app preparation part. Called only once on start. Argument
+    is $self only.
+
+  "_process_actions"
+    Method to set app processing part. Called in each call before creating
+    of output. Argument is $self and $env.
+
+  "_tags_middle"
+    Method to set tags via "$self-"{'tags'}> object. Argument is $self only.
+
+EXAMPLE
+     package App;
+
+     use base qw(Plack::Component::Tags);
+     use strict;
+     use warnings;
+
+     sub _tags_middle {
+             my $self = shift;
+
+             $self->{'tags'}->put(
+                     ['d', 'Hello world'],
+             );
+
+             return;
+     }
+
+     package main;
+
+     use Plack::Runner;
+
+     my $app = App->new(
+             'title' => 'My app',
+     )->to_app;
+     my $runner = Plack::Runner->new;
+     $runner->run($app);
+
+     # Output:
+     # HTTP::Server::PSGI: Accepting connections at http://0:5000/
+
+     # Output by GET to http://0:5000/:
+     # <!DOCTYPE html>
+     # <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>My app</title></head><body>Hello world</body></html>
+
+DEPENDENCIES
+    CSS::Struct::Output::Raw, Encode, Plack::Component,
+    Plack::Util::Accessor, Tags::HTML::Page::Begin, Tags::HTML::Page::End,
+    Tags::Output::Raw.
+
+SEE ALSO
+    Plack::Component
+        Base class for PSGI endpoints
+
+REPOSITORY
+    <https://github.com/michal-josef-spacek/Plack-Component-Tags>
+
+AUTHOR
+    Michal Josef Špaček <mailto:skim@cpan.org>
+
+    <http://skim.cz>
+
+LICENSE AND COPYRIGHT
+    © Michal Josef Špaček 2021
+
+    BSD 2-Clause License
+
+VERSION
+    0.01
+
