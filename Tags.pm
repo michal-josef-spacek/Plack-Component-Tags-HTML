@@ -78,7 +78,7 @@ sub _prepare_app {
 }
 
 sub _process_actions {
-	my $self = shift;
+	my ($self, $env) = @_;
 
 	return;
 }
