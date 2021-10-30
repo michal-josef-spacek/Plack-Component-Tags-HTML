@@ -50,10 +50,6 @@ sub prepare_app {
 		$self->encoding('utf-8');
 	}
 
-	if (! $self->title) {
-		$self->title(__PACKAGE__);
-	}
-
 	$self->_prepare_app;
 
 	return;
@@ -193,8 +189,7 @@ Default value is undef.
 =head2 C<title>
 
 Title of page.
-Default value is __PACKAGE__ name.
-TODO: Only Plack::Component::Tags?
+Default value is undef.
 
 =head2 C<tags>
 
