@@ -149,7 +149,7 @@ Plack::Component::Tags::HTML - Plack component for Tags with HTML output.
         return;
  }
 
- sub _process_action {
+ sub _process_actions {
         my ($self, $env) = @_;
         # Process actions in Plack::Component::call() before output.
         return;
