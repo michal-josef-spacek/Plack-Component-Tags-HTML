@@ -1,5 +1,5 @@
 ---
-abstract: 'Plack component for Tags.'
+abstract: 'Plack component for Tags with HTML output.'
 author:
   - 'Michal Josef Spacek <skim@cpan.org>'
 build_requires:
@@ -15,9 +15,10 @@ license: bsd
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
-name: Plack-Component-Tags
+name: Plack-Component-Tags-HTML
 no_index:
   directory:
+    - examples
     - inc
     - t
     - xt
@@ -32,8 +33,8 @@ requires:
   Tags::Output::Raw: 0
   perl: 5.8.0
 resources:
-  bugtracker: https://github.com/michal-josef-spacek/Plack-Component-Tags/issues
-  homepage: https://github.com/michal-josef-spacek/Plack-Component-Tags
+  bugtracker: https://github.com/michal-josef-spacek/Plack-Component-Tags-HTML/issues
+  homepage: https://github.com/michal-josef-spacek/Plack-Component-Tags-HTML
   license: http://opensource.org/licenses/bsd-license.php
-  repository: git://github.com/michal-josef-spacek/Plack-Component-Tags
+  repository: git://github.com/michal-josef-spacek/Plack-Component-Tags-HTML
 version: '0.01'

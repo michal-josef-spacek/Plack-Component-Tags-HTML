@@ -1,10 +1,11 @@
 NAME
-    Plack::Component::Tags - Plack component for Tags.
+    Plack::Component::Tags::HTML - Plack component for Tags with HTML
+    output.
 
 SYNOPSIS
      package App;
 
-     use base qw(Plack::Component::Tags);
+     use base qw(Plack::Component::Tags::HTML);
 
      sub _css {
             my $self = shift;
@@ -38,9 +39,13 @@ DESCRIPTION
     This component is helper for creating Plack application with Tags. It is
     based on Plack::Component.
 
-METHODS
+ACCESSOR METHODS
   "author"
     Author string to HTML head. Default value is undef.
+
+  "content_type"
+    Content type for output. Default value is 'text/html;
+    charset=__ENCODING__'.
 
   "css"
     CSS::Struct::Output object. Default value is
@@ -55,9 +60,11 @@ METHODS
   "generator"
     Generator string to HTML head. Default value is undef.
 
+  "status_code"
+    HTTP status code. Default value is 200.
+
   "title"
-    Title of page. Default value is __PACKAGE__ name. TODO: Only
-    Plack::Component::Tags?
+    Title of page. Default value is undef.
 
   "tags"
     Tags::Output object. Default value is
@@ -82,10 +89,33 @@ METHODS TO OVERWRITE
   "_tags_middle"
     Method to set tags via "$self-"{'tags'}> object. Argument is $self only.
 
+METHODS IMPLEMENTED
+  "call"
+    Inherited from Plack::Component. There is run of:
+
+     $self->_process_actions($env);
+     $self->_css;
+     $self->_tags;
+
+    After it Generate and encode output from Tags to output with HTTP code.
+    HTTP status code is defined by "status_code()" method and Content-Type
+    is defined by "content_type" method.
+
+  "prepare_app"
+    Initialize default values for:
+
+     tags()
+     css()
+     encoding()
+     content_type()
+     status_code()
+
+    and run _prepare_app().
+
 EXAMPLE
      package App;
 
-     use base qw(Plack::Component::Tags);
+     use base qw(Plack::Component::Tags::HTML);
      use strict;
      use warnings;
 
@@ -112,7 +142,17 @@ EXAMPLE
      # Output:
      # HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
-     # Output by GET to http://0:5000/:
+     # Output by HEAD to http://localhost:5000/:
+     # 200 OK
+     # Date: Sun, 31 Oct 2021 10:35:33 GMT
+     # Server: HTTP::Server::PSGI
+     # Content-Length: 166
+     # Content-Type: text/html; charset=utf-8
+     # Client-Date: Sun, 31 Oct 2021 10:35:33 GMT
+     # Client-Peer: 127.0.0.1:5000
+     # Client-Response-Num: 1
+
+     # Output by GET to http://localhost:5000/:
      # <!DOCTYPE html>
      # <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>My app</title></head><body>Hello world</body></html>
 
@@ -126,7 +166,7 @@ SEE ALSO
         Base class for PSGI endpoints
 
 REPOSITORY
-    <https://github.com/michal-josef-spacek/Plack-Component-Tags>
+    <https://github.com/michal-josef-spacek/Plack-Component-Tags-HTML>
 
 AUTHOR
     Michal Josef Špaček <mailto:skim@cpan.org>
