@@ -7,8 +7,8 @@ use Test::NoWarnings;
 BEGIN {
 
 	# Test.
-	use_ok('Plack::Component::Tags');
+	use_ok('Plack::Component::Tags::HTML');
 }
 
 # Test.
-require_ok('Plack::Component::Tags');
+require_ok('Plack::Component::Tags::HTML');

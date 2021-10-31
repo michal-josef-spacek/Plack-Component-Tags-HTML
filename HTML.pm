@@ -1,4 +1,4 @@
-package Plack::Component::Tags;
+package Plack::Component::Tags::HTML;
 
 use base qw(Plack::Component);
 use strict;
@@ -6,7 +6,7 @@ use warnings;
 
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
-use Plack::Util::Accessor qw(author css encoding favicon generator title tags);
+use Plack::Util::Accessor qw(author content_type css encoding favicon generator status_code title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -23,10 +23,15 @@ sub call {
 	$self->_css;
 	$self->_tags;
 	$self->tags->finalize;
+
+	my $content_type = $self->content_type
+		|| 'text/html; charset='.$self->encoding;
+	my $status_code = $self->status_code || 200;
+
 	return [
-		200,
+		$status_code,
 		[
-			'content-type' => 'text/html; charset='.$self->encoding,
+			'content-type' => $content_type,
 		],
 		[$self->_encode($self->tags->flush(1))],
 	];
@@ -118,13 +123,13 @@ __END__
 
 =head1 NAME
 
-Plack::Component::Tags - Plack component for Tags.
+Plack::Component::Tags::HTML - Plack component for Tags with HTML output.
 
 =head1 SYNOPSIS
 
  package App;
 
- use base qw(Plack::Component::Tags);
+ use base qw(Plack::Component::Tags::HTML);
 
  sub _css {
         my $self = shift;
@@ -159,12 +164,17 @@ Plack::Component::Tags - Plack component for Tags.
 This component is helper for creating Plack application with Tags.
 It is based on Plack::Component.
 
-=head1 METHODS
+=head1 ACCESSOR METHODS
 
 =head2 C<author>
 
 Author string to HTML head.
 Default value is undef.
+
+=head2 C<content_type>
+
+Content type for output.
+Default value is 'text/html; charset=__ENCODING__'.
 
 =head2 C<css>
 
@@ -185,6 +195,11 @@ Default value is undef.
 
 Generator string to HTML head.
 Default value is undef.
+
+=head2 C<status_code>
+
+HTTP status code.
+Default value is 200.
 
 =head2 C<title>
 
@@ -223,11 +238,26 @@ output. Argument is C<$self> and C<$env>.
 Method to set tags via C<$self->{'tags'}> object.
 Argument is C<$self> only.
 
+=head1 METHODS IMPLEMENTED
+
+=head2 C<call>
+
+Inherited from L<Plack::Component>.
+There is run of:
+
+ $self->_process_actions($env);
+ $self->_css;
+ $self->_tags;
+
+After it Generate and encode output from Tags to output with 200 HTTP code.
+
+=head2 C<prepare_app>
+
 =head1 EXAMPLE
 
  package App;
 
- use base qw(Plack::Component::Tags);
+ use base qw(Plack::Component::Tags::HTML);
  use strict;
  use warnings;
 
@@ -254,7 +284,17 @@ Argument is C<$self> only.
  # Output:
  # HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
- # Output by GET to http://0:5000/:
+ # Output by HEAD to http://localhost:5000/:
+ # 200 OK
+ # Date: Sun, 31 Oct 2021 10:35:33 GMT
+ # Server: HTTP::Server::PSGI
+ # Content-Length: 166
+ # Content-Type: text/html; charset=utf-8
+ # Client-Date: Sun, 31 Oct 2021 10:35:33 GMT
+ # Client-Peer: 127.0.0.1:5000
+ # Client-Response-Num: 1
+
+ # Output by GET to http://localhost:5000/:
  # <!DOCTYPE html>
  # <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>My app</title></head><body>Hello world</body></html>
 
@@ -280,7 +320,7 @@ Base class for PSGI endpoints
 
 =head1 REPOSITORY
 
-L<https://github.com/michal-josef-spacek/Plack-Component-Tags>
+L<https://github.com/michal-josef-spacek/Plack-Component-Tags-HTML>
 
 =head1 AUTHOR
 
