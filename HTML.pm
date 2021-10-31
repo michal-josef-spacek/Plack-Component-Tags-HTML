@@ -24,14 +24,10 @@ sub call {
 	$self->_tags;
 	$self->tags->finalize;
 
-	my $content_type = $self->content_type
-		|| 'text/html; charset='.$self->encoding;
-	my $status_code = $self->status_code || 200;
-
 	return [
-		$status_code,
+		$self->status_code,
 		[
-			'content-type' => $content_type,
+			'content-type' => $self->content_type,
 		],
 		[$self->_encode($self->tags->flush(1))],
 	];
@@ -53,6 +49,14 @@ sub prepare_app {
 
 	if (! $self->encoding) {
 		$self->encoding('utf-8');
+	}
+
+	if (! $self->content_type) {
+		$self->content_type('text/html; charset='.$self->encoding);
+	}
+
+	if (! $self->status_code) {
+		$self->status_code(200);
 	}
 
 	$self->_prepare_app;
@@ -249,9 +253,21 @@ There is run of:
  $self->_css;
  $self->_tags;
 
-After it Generate and encode output from Tags to output with 200 HTTP code.
+After it Generate and encode output from Tags to output with HTTP code.
+HTTP status code is defined by C<status_code()> method and Content-Type is
+defined by C<content_type> method.
 
 =head2 C<prepare_app>
+
+Initialize default values for:
+
+ tags()
+ css()
+ encoding()
+ content_type()
+ status_code()
+
+and run _prepare_app().
 
 =head1 EXAMPLE
 
