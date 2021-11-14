@@ -6,7 +6,8 @@ use warnings;
 
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
-use Plack::Util::Accessor qw(author content_type css encoding favicon generator status_code title tags);
+use Plack::Util::Accessor qw(author content_type css encoding
+	favicon generator psgi_app status_code title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -18,6 +19,11 @@ sub call {
 
 	# Process actions.
 	$self->_process_actions($env);
+
+	# PSGI application.
+	if ($self->psgi_app) {
+		return $self->psgi_app;
+	}
 
 	# Process 'Tags' for page.
 	$self->_css;
@@ -199,6 +205,12 @@ Default value is undef.
 =head2 C<generator>
 
 Generator string to HTML head.
+Default value is undef.
+
+=head2 C<psgi_app>
+
+PSGI application to run instead of normal process.
+Intent of this is change application in C<_process_actions> method.
 Default value is undef.
 
 =head2 C<status_code>
