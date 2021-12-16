@@ -22,7 +22,9 @@ sub call {
 
 	# PSGI application.
 	if ($self->psgi_app) {
-		return $self->psgi_app;
+		my $app = $self->psgi_app;
+		$self->psgi_app(undef);
+		return $app;
 	}
 
 	# Process 'Tags' for page.
