@@ -126,6 +126,7 @@ sub _tags {
 
 	return;
 }
+
 1;
 
 __END__
