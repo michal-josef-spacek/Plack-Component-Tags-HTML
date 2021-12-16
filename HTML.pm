@@ -7,7 +7,7 @@ use warnings;
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
 use Plack::Util::Accessor qw(author content_type css encoding
-	favicon generator psgi_app status_code title tags);
+	favicon flag_begin flag_end generator psgi_app status_code title tags);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -68,6 +68,14 @@ sub prepare_app {
 		$self->status_code(200);
 	}
 
+	if (! defined $self->flag_begin) {
+		$self->flag_begin(1);
+	}
+
+	if (! defined $self->flag_end) {
+		$self->flag_end(1);
+	}
+
 	$self->_prepare_app;
 
 	return;
@@ -106,23 +114,27 @@ sub _tags_middle {
 sub _tags {
 	my $self = shift;
 
-	Tags::HTML::Page::Begin->new(
-		'author' => $self->author,
-		'css' => $self->css,
-		'charset' => $self->encoding,
-		'favicon' => $self->favicon,
-		'generator' => $self->generator,
-		'lang' => {
-			'title' => $self->title,
-		},
-		'tags' => $self->tags,
-	)->process;
+	if ($self->flag_begin) {
+		Tags::HTML::Page::Begin->new(
+			'author' => $self->author,
+			'css' => $self->css,
+			'charset' => $self->encoding,
+			'favicon' => $self->favicon,
+			'generator' => $self->generator,
+			'lang' => {
+				'title' => $self->title,
+			},
+			'tags' => $self->tags,
+		)->process;
+	}
 
 	$self->_tags_middle;
 
-	Tags::HTML::Page::End->new(
-		'tags' => $self->tags,
-	)->process;
+	if ($self->flag_end) {
+		Tags::HTML::Page::End->new(
+			'tags' => $self->tags,
+		)->process;
+	}
 
 	return;
 }
@@ -205,6 +217,18 @@ Default value is 'utf-8'.
 Link to favicon.
 Default value is undef.
 
+=head2 C<flag_begin>
+
+Flag that means begin of html writing via L<Tags::HTML::Page::Begin>.
+Example is in L<EXAMPLE2>.
+Default value is 1.
+
+=head2 C<flag_end>
+
+Flag that means end of html writing via L<Tags::HTML::Page::End>.
+Example is in L<EXAMPLE2>.
+Default value is 1.
+
 =head2 C<generator>
 
 Generator string to HTML head.
@@ -286,7 +310,7 @@ Initialize default values for:
 
 and run _prepare_app().
 
-=head1 EXAMPLE
+=head1 EXAMPLE1
 
  package App;
 
@@ -330,6 +354,39 @@ and run _prepare_app().
  # Output by GET to http://localhost:5000/:
  # <!DOCTYPE html>
  # <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>My app</title></head><body>Hello world</body></html>
+
+=head1 EXAMPLE2
+
+ package App;
+
+ use base qw(Plack::Component::Tags::HTML);
+ use strict;
+ use warnings;
+
+ sub _tags_middle {
+         my $self = shift;
+
+         $self->{'tags'}->put(
+                 ['d', 'Hello world'],
+         );
+
+         return;
+ }
+
+ package main;
+
+ use Plack::Runner;
+
+ my $app = App->new(
+         'flag_begin' => 0,
+         'flag_end' => 0,
+         'title' => 'My app',
+ )->to_app;
+ my $runner = Plack::Runner->new;
+ $runner->run($app);
+
+ # Output by GET to http://localhost:5000/:
+ # Hello world
 
 =head1 DEPENDENCIES
 
