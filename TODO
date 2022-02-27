@@ -1,6 +1,5 @@
 TODO
 ====
-2. Testy
 4.
 
 Applied
@@ -11,3 +10,6 @@ OK [20211030] skim
 3. Default value of title is __PACKAGE__. Is it static 'Plack::Component::Tags'?
 Remove default title.
 OK [20211030] skim
+
+2. Testy
+OK [20220227] skim
