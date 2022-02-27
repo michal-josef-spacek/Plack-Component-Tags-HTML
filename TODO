@@ -1,6 +1,7 @@
 TODO
 ====
-4.
+4. Add test with Tags::Output::Structure to cover tags() method.
+5.
 
 Applied
 =======
