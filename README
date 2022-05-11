@@ -125,6 +125,11 @@ METHODS IMPLEMENTED
 
     and run _prepare_app().
 
+ERRORS
+     prepare_app():
+             Accessor 'css' must be a 'CSS::Struct::Output' object.
+             Accessor 'tags' must be a 'Tags::Output' object.
+
 EXAMPLE1
      package App;
 

@@ -6,6 +6,7 @@ use warnings;
 
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
+use Error::Pure qw(err);
 use Plack::Util::Accessor qw(author content_type css encoding
 	favicon flag_begin flag_end generator psgi_app status_code title tags);
 use Tags::HTML::Page::Begin;
@@ -44,7 +45,11 @@ sub call {
 sub prepare_app {
 	my $self = shift;
 
-	if (! $self->tags || ! $self->tags->isa('Tags::Output')) {
+	if ($self->tags) {
+		if (! $self->tags->isa('Tags::Output')) {
+			err "Accessor 'tags' must be a 'Tags::Output' object.";
+		}
+	} else {
 		$self->tags(Tags::Output::Raw->new(
 			'xml' => 1,
 			'no_simple' => ['textarea'],
@@ -52,7 +57,11 @@ sub prepare_app {
 		));
 	}
 
-	if (! $self->css || ! $self->css->isa('CSS::Struct::Output')) {
+	if ($self->css) {
+		if (! $self->css->isa('CSS::Struct::Output')) {
+			err "Accessor 'css' must be a 'CSS::Struct::Output' object.";
+		}
+	} else {
 		$self->css(CSS::Struct::Output::Raw->new);
 	}
 
@@ -309,6 +318,12 @@ Initialize default values for:
  status_code()
 
 and run _prepare_app().
+
+=head1 ERRORS
+
+ prepare_app():
+         Accessor 'css' must be a 'CSS::Struct::Output' object.
+         Accessor 'tags' must be a 'Tags::Output' object.
 
 =head1 EXAMPLE1
 
