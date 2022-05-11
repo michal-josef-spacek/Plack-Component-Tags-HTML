@@ -1,4 +1,5 @@
 0.03
+ - Fix doc escape sequences.
 
 0.02 2022-02-28T12:38:08+01:00
  - Fix minimal dependency for Tags::HTML::Page::Begin. There is fix for

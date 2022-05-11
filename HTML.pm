@@ -265,7 +265,7 @@ Default value is
 
 =head2 C<_css>
 
-Method to set css via C<$self->{'css'}> object.
+Method to set css via C<$self-E<gt>{'css'}> object.
 Argument is C<$self> only.
 
 =head2 C<_prepare_app>
@@ -280,7 +280,7 @@ output. Argument is C<$self> and C<$env>.
 
 =head2 C<_tags_middle>
 
-Method to set tags via C<$self->{'tags'}> object.
+Method to set tags via C<$self-E<gt>{'tags'}> object.
 Argument is C<$self> only.
 
 =head1 METHODS IMPLEMENTED
