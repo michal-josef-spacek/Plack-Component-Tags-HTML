@@ -1,4 +1,4 @@
-0.05
+0.05 2022-05-13T18:01:38+02:00
  - Add test for app without title.
  - Fix minimal dependency for Tags::HTML::Page::Begin. With optional title
    element.
