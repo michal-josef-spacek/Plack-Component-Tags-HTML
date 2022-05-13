@@ -1,4 +1,5 @@
 0.05
+ - Add test for app without title.
 
 0.04 2022-05-12T14:17:02+02:00
  - Rewrite prepare_app() and creating of default 'tags' and 'css' objects.
