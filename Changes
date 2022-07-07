@@ -1,4 +1,5 @@
 0.06
+ - Update Tags::HTML::Page::Begin to 0.13.
 
 0.05 2022-05-13T18:01:38+02:00
  - Add test for app without title.
