@@ -328,6 +328,8 @@ and run _prepare_app().
 
 =head1 EXAMPLE1
 
+=for comment filename=hello_world_page_psgi.pl
+
  package App;
 
  use base qw(Plack::Component::Tags::HTML);
@@ -372,6 +374,8 @@ and run _prepare_app().
  # <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>My app</title></head><body>Hello world</body></html>
 
 =head1 EXAMPLE2
+
+=for comment filename=hello_world_element_psgi.pl
 
  package App;
 

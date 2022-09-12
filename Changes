@@ -1,5 +1,6 @@
 0.07
  - Add better checks for css() and tags() accessors.
+ - Rename examples to better names.
 
 0.06 2022-07-08T00:21:53+02:00
  - Update Tags::HTML::Page::Begin to 0.13.
