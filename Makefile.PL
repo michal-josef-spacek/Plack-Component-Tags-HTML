@@ -23,6 +23,7 @@ requires 'Encode' => 0;
 requires 'Error::Pure' => 0;
 requires 'Plack::Component' => 0;
 requires 'Plack::Util::Accessor' => 0;
+requires 'Scalar::Util' => 0;
 requires 'Tags::HTML::Page::Begin' => 0.13;
 requires 'Tags::HTML::Page::End' => 0;
 requires 'Readonly' => 0;

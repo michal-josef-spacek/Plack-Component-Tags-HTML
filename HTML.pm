@@ -9,6 +9,7 @@ use Encode qw(encode);
 use Error::Pure qw(err);
 use Plack::Util::Accessor qw(author content_type css encoding
 	favicon flag_begin flag_end generator psgi_app status_code title tags);
+use Scalar::Util qw(blessed);
 use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
@@ -46,7 +47,7 @@ sub prepare_app {
 	my $self = shift;
 
 	if ($self->tags) {
-		if (! $self->tags->isa('Tags::Output')) {
+		if (! blessed($self->tags) || ! $self->tags->isa('Tags::Output')) {
 			err "Accessor 'tags' must be a 'Tags::Output' object.";
 		}
 	} else {
@@ -58,7 +59,7 @@ sub prepare_app {
 	}
 
 	if ($self->css) {
-		if (! $self->css->isa('CSS::Struct::Output')) {
+		if (! blessed($self->css) || ! $self->css->isa('CSS::Struct::Output')) {
 			err "Accessor 'css' must be a 'CSS::Struct::Output' object.";
 		}
 	} else {
@@ -421,6 +422,7 @@ L<CSS::Struct::Output::Raw>,
 L<Encode>,
 L<Plack::Component>,
 L<Plack::Util::Accessor>,
+L<Scalar::Util>,
 L<Tags::HTML::Page::Begin>,
 L<Tags::HTML::Page::End>,
 L<Tags::Output::Raw>.
