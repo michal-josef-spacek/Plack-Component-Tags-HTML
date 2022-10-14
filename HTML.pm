@@ -54,7 +54,7 @@ sub prepare_app {
 		$self->tags(Tags::Output::Raw->new(
 			'xml' => 1,
 			'no_simple' => ['textarea'],
-			'preserved' => ['pre'],
+			'preserved' => ['pre', 'style'],
 		));
 	}
 
