@@ -1,4 +1,4 @@
-0.08
+0.08 2022-10-29T17:07:43+02:00
  - Add script_js() and script_js_src() methods.
  - Set preserved for style element in Tags default.
 
