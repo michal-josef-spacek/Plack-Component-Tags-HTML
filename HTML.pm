@@ -34,6 +34,7 @@ sub call {
 	$self->_css;
 	$self->_tags;
 	$self->tags->finalize;
+	$self->_cleanup;
 
 	return [
 		$self->status_code,
@@ -96,6 +97,12 @@ sub prepare_app {
 	}
 
 	$self->_prepare_app;
+
+	return;
+}
+
+sub _cleanup {
+	my $self = shift;
 
 	return;
 }
@@ -177,6 +184,12 @@ Plack::Component::Tags::HTML - Plack component for Tags with HTML output.
  package App;
 
  use base qw(Plack::Component::Tags::HTML);
+
+ sub _cleanup {
+        my $self = shift;
+        # Cleanup about call().
+        return;
+ }
 
  sub _css {
         my $self = shift;
@@ -294,6 +307,11 @@ Default value is
 
 =head1 METHODS TO OVERWRITE
 
+=head2 C<_cleanup>
+
+Method to cleanup after C<call()>.
+Argument is C<$self> only.
+
 =head2 C<_css>
 
 Method to set css via C<$self-E<gt>{'css'}> object.
@@ -324,6 +342,7 @@ There is run of:
  $self->_process_actions($env);
  $self->_css;
  $self->_tags;
+ $self->_cleanup;
 
 After it Generate and encode output from Tags to output with HTTP code.
 HTTP status code is defined by C<status_code()> method and Content-Type is
