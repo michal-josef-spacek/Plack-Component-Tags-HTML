@@ -7,6 +7,12 @@ SYNOPSIS
 
      use base qw(Plack::Component::Tags::HTML);
 
+     sub _cleanup {
+            my $self = shift;
+            # Cleanup about call().
+            return;
+     }
+
      sub _css {
             my $self = shift;
             $self->{'css'}->put(
@@ -104,6 +110,9 @@ ACCESSOR METHODS
      ));
 
 METHODS TO OVERWRITE
+  "_cleanup"
+    Method to cleanup after "call()". Argument is $self only.
+
   "_css"
     Method to set css via "$self->{'css'}" object. Argument is $self only.
 
@@ -125,6 +134,7 @@ METHODS IMPLEMENTED
      $self->_process_actions($env);
      $self->_css;
      $self->_tags;
+     $self->_cleanup;
 
     After it Generate and encode output from Tags to output with HTTP code.
     HTTP status code is defined by "status_code()" method and Content-Type
