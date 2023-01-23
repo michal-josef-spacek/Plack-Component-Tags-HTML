@@ -1,4 +1,4 @@
-0.10
+0.10 2023-01-23T13:25:47+01:00
  - Add css_init() accessor and update to new Tags::HTML::Page::Begin.
  - Update copyright years.
 
