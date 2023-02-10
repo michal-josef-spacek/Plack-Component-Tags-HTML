@@ -30,8 +30,10 @@ sub call {
 		return $app;
 	}
 
-	# Process 'Tags' for page.
+	# Process 'CSS::Struct' for page.
 	$self->_css;
+
+	# Process 'Tags' for page.
 	$self->_tags;
 	$self->tags->finalize;
 	$self->_cleanup;
