@@ -15,7 +15,7 @@ use Tags::HTML::Page::Begin;
 use Tags::HTML::Page::End;
 use Tags::Output::Raw;
 
-our $VERSION = 0.11;
+our $VERSION = 0.12;
 
 sub call {
 	my ($self, $env) = @_;
@@ -517,6 +517,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.11
+0.12
 
 =cut
