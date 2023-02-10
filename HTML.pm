@@ -31,6 +31,9 @@ sub call {
 	}
 
 	# Process 'CSS::Struct' for page.
+	if (defined $self->{'_page_begin'}) {
+		$self->{'_page_begin'}->process_css;
+	}
 	$self->_css;
 
 	# Process 'Tags' for page.
@@ -98,6 +101,25 @@ sub prepare_app {
 		$self->script_js_src([]);
 	}
 
+	if ($self->flag_begin) {
+		$self->{'_page_begin'} = Tags::HTML::Page::Begin->new(
+			'author' => $self->author,
+			'css' => $self->css,
+			defined $self->css_init ? (
+				'css_init' => $self->css_init,
+			) : (),
+			'charset' => $self->encoding,
+			'favicon' => $self->favicon,
+			'generator' => $self->generator,
+			'lang' => {
+				'title' => $self->title,
+			},
+			'script_js' => $self->script_js,
+			'script_js_src' => $self->script_js_src,
+			'tags' => $self->tags,
+		);
+	}
+
 	$self->_prepare_app;
 
 	return;
@@ -143,24 +165,7 @@ sub _tags {
 	my $self = shift;
 
 	if ($self->flag_begin) {
-		my $page_begin = Tags::HTML::Page::Begin->new(
-			'author' => $self->author,
-			'css' => $self->css,
-			defined $self->css_init ? (
-				'css_init' => $self->css_init,
-			) : (),
-			'charset' => $self->encoding,
-			'favicon' => $self->favicon,
-			'generator' => $self->generator,
-			'lang' => {
-				'title' => $self->title,
-			},
-			'script_js' => $self->script_js,
-			'script_js_src' => $self->script_js_src,
-			'tags' => $self->tags,
-		);
-		$page_begin->process_css;
-		$page_begin->process;
+		$self->{'_page_begin'}->process;
 	}
 
 	$self->_tags_middle;
