@@ -32,7 +32,7 @@ requires:
   Plack::Util::Accessor: 0
   Readonly: 0
   Scalar::Util: 0
-  Tags::HTML::Page::Begin: 0.14
+  Tags::HTML::Page::Begin: 0.16
   Tags::HTML::Page::End: 0
   Tags::Output::Raw: 0
   perl: 5.8.0

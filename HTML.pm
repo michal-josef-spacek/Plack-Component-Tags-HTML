@@ -141,7 +141,7 @@ sub _tags {
 	my $self = shift;
 
 	if ($self->flag_begin) {
-		Tags::HTML::Page::Begin->new(
+		my $page_begin = Tags::HTML::Page::Begin->new(
 			'author' => $self->author,
 			'css' => $self->css,
 			defined $self->css_init ? (
@@ -156,7 +156,9 @@ sub _tags {
 			'script_js' => $self->script_js,
 			'script_js_src' => $self->script_js_src,
 			'tags' => $self->tags,
-		)->process;
+		);
+		$page_begin->process_css;
+		$page_begin->process;
 	}
 
 	$self->_tags_middle;
