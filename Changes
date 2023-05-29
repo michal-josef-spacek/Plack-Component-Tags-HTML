@@ -1,4 +1,4 @@
-0.13
+0.13 2023-05-29T16:49:03+02:00
  - Move defaults to _prepare_app() directly. Possible to rewrite/place in
    module, which inherits this.
  - Update Module::Install to 1.21 version.
