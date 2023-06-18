@@ -27,6 +27,7 @@ package main;
 use HTTP::Request::Common;
 use Plack::Test;
 
+# Test.
 my $app = App->new(
 	'content_type' => 'application/xml',
 	'encoding' => 'UTF-8',

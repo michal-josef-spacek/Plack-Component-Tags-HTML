@@ -25,6 +25,7 @@ package main;
 use HTTP::Request::Common;
 use Plack::Test;
 
+# Test.
 my $app = App->new(
         'title' => 'My app',
 	'css_init' => [],
