@@ -1,4 +1,5 @@
 0.14
+ - Pass $env variable to _css(), _tags_middle() and _cleanup() methods.
 
 0.13 2023-05-29T16:49:03+02:00
  - Move defaults to _prepare_app() directly. Possible to rewrite/place in
