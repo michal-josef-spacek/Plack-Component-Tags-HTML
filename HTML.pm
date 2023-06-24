@@ -312,11 +312,6 @@ Default value is [].
 HTTP status code.
 Default value is 200.
 
-=head2 C<title>
-
-Title of page.
-Default value is undef.
-
 =head2 C<tags>
 
 Tags::Output object.
@@ -327,6 +322,11 @@ Default value is
          'no_simple' => ['textarea'],
          'preserved' => ['pre'],
  ));
+
+=head2 C<title>
+
+Title of page.
+Default value is undef.
 
 =head1 METHODS TO OVERWRITE
 
