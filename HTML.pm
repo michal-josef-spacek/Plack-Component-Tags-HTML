@@ -319,9 +319,9 @@ Default value is
 
  Tags::Output::Raw->new(
          'xml' => 1,
-         'no_simple' => ['textarea'],
-         'preserved' => ['pre'],
- ));
+         'no_simple' => ['script', 'textarea'],
+         'preserved' => ['pre', 'style'],
+ );
 
 =head2 C<title>
 
