@@ -1,6 +1,7 @@
 0.16
  - Fix default value of 'tags' parameter in doc.
  - Sort parameters in doc.
+ - Update copyright years.
 
 0.15 2023-06-20T10:33:58+02:00
  - Fix test dependencies.
