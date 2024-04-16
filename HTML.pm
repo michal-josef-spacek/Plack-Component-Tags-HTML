@@ -496,6 +496,7 @@ Call C<_prepare_app()>.
 
 L<CSS::Struct::Output::Raw>,
 L<Encode>,
+L<Error::Pure>,
 L<Plack::Component>,
 L<Plack::Util::Accessor>,
 L<Scalar::Util>,

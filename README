@@ -256,7 +256,7 @@ EXAMPLE2
      # Hello world
 
 DEPENDENCIES
-    CSS::Struct::Output::Raw, Encode, Plack::Component,
+    CSS::Struct::Output::Raw, Encode, Error::Pure, Plack::Component,
     Plack::Util::Accessor, Scalar::Util, Tags::HTML::Page::Begin,
     Tags::HTML::Page::End, Tags::Output::Raw.
 
