@@ -131,6 +131,12 @@ sub _prepare_app {
 		$self->script_js_src([]);
 	}
 
+	return;
+}
+
+sub _process_actions {
+	my ($self, $env) = @_;
+
 	if ($self->flag_begin) {
 		$self->{'_page_begin'} = Tags::HTML::Page::Begin->new(
 			'author' => $self->author,
@@ -150,12 +156,6 @@ sub _prepare_app {
 			'tags' => $self->tags,
 		);
 	}
-
-	return;
-}
-
-sub _process_actions {
-	my ($self, $env) = @_;
 
 	return;
 }
