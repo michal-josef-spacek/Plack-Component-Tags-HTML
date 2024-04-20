@@ -1,4 +1,5 @@
 0.16
+ - Add handling of css_src().
  - Fix DEPENDENCIES section in doc.
  - Fix default value of 'tags' parameter in doc.
  - Sort parameters in doc.

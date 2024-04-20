@@ -7,7 +7,7 @@ use warnings;
 use CSS::Struct::Output::Raw;
 use Encode qw(encode);
 use Error::Pure qw(err);
-use Plack::Util::Accessor qw(author content_type css css_init encoding
+use Plack::Util::Accessor qw(author content_type css css_init css_src encoding
 	favicon flag_begin flag_end generator psgi_app script_js script_js_src
 	status_code title tags);
 use Scalar::Util qw(blessed);
@@ -119,6 +119,10 @@ sub _prepare_app {
 		$self->flag_end(1);
 	}
 
+	if (! defined $self->css_src) {
+		$self->css_src([]);
+	}
+
 	if (! defined $self->script_js) {
 		$self->script_js([]);
 	}
@@ -134,6 +138,7 @@ sub _prepare_app {
 			defined $self->css_init ? (
 				'css_init' => $self->css_init,
 			) : (),
+			'css_src' => $self->css_src,
 			'charset' => $self->encoding,
 			'favicon' => $self->favicon,
 			'generator' => $self->generator,
