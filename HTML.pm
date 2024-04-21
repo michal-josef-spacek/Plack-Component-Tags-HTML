@@ -23,6 +23,26 @@ sub call {
 	# Process actions.
 	$self->_process_actions($env);
 
+	if ($self->flag_begin) {
+		$self->{'_page_begin'} = Tags::HTML::Page::Begin->new(
+			'author' => $self->author,
+			'css' => $self->css,
+			defined $self->css_init ? (
+				'css_init' => $self->css_init,
+			) : (),
+			'css_src' => $self->css_src,
+			'charset' => $self->encoding,
+			'favicon' => $self->favicon,
+			'generator' => $self->generator,
+			'lang' => {
+				'title' => $self->title,
+			},
+			'script_js' => $self->script_js,
+			'script_js_src' => $self->script_js_src,
+			'tags' => $self->tags,
+		);
+	}
+
 	# PSGI application.
 	if ($self->psgi_app) {
 		my $app = $self->psgi_app;
@@ -136,26 +156,6 @@ sub _prepare_app {
 
 sub _process_actions {
 	my ($self, $env) = @_;
-
-	if ($self->flag_begin) {
-		$self->{'_page_begin'} = Tags::HTML::Page::Begin->new(
-			'author' => $self->author,
-			'css' => $self->css,
-			defined $self->css_init ? (
-				'css_init' => $self->css_init,
-			) : (),
-			'css_src' => $self->css_src,
-			'charset' => $self->encoding,
-			'favicon' => $self->favicon,
-			'generator' => $self->generator,
-			'lang' => {
-				'title' => $self->title,
-			},
-			'script_js' => $self->script_js,
-			'script_js_src' => $self->script_js_src,
-			'tags' => $self->tags,
-		);
-	}
 
 	return;
 }
